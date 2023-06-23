@@ -1,0 +1,20 @@
+= Simple Go API
+
+The simplest possible API written in Go.
+
+== Requirements
+
+This application requires the Go programming language.
+
+== Container
+
+You can build the container image specified in the `Dockerfile` with Docker or Podman:
+
+[source,bash]
+--
+podman build -t simple-go-api .
+--
+
+== CI/CD
+
+This project includes a GitHub Workflow and a GitLab CI/CD definition file, both generating the corresponding container image. The GitHub Workflow stores the image in `ghcr.io/USERNAME/PROJECT_NAME:main` while the GitLab CI/CD process stores them in `registry.gitlab.com/USERNAME/PROJECT_NAME:latest`
