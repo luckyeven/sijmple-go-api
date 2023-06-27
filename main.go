@@ -12,7 +12,7 @@ import (
 var (
 	example_counter = promauto.NewCounter(prometheus.CounterOpts{
 		Name: "example_counter",
-		Help: "The total number of generated messages",
+		Help: "An example of a Prometheus counter",
 	})
 )
 
@@ -20,12 +20,13 @@ func main() {
 	r := prometheus.NewRegistry()
 	r.MustRegister(example_counter)
 
-	http.HandleFunc("/", HelloServer)
-	http.Handle("/metrics", promhttp.Handler())
+	http.HandleFunc("/", Handler)
+	http.Handle("/metrics", promhttp.Handler()) // Exporting metrics
 	http.ListenAndServe("0.0.0.0:8080", nil)
 }
 
-func HelloServer(w http.ResponseWriter, r *http.Request) {
+func Handler(w http.ResponseWriter, r *http.Request) {
 	example_counter.Inc()
+	fmt.Println("Handler executing")
 	fmt.Fprintf(w, "The simplest API ever!")
 }
